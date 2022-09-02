@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return bcrypt($this->pswd);
     }
+
+    public function Employee()
+    {
+        return $this->hasOne(EmployeeWorkStatus::class,'Email','email')->select('Email','Employee_ID','EmployeeID','FullName');
+    }
 }

@@ -18,8 +18,13 @@ class AuthController extends Controller
     }
     public function Auth(Request $request)
     {
-        $user = User::Where('MobilePhone','=', $request->MobilePhone)
+        $user = User::with('Employee')->select('name','email','MobilePhone','group_intranet')
+                    ->Where('MobilePhone','=', $request->MobilePhone)
                     ->first();
+
+                    // "Employee_ID": "1592",
+                    // "EmployeeID": "18030093",
+                    // "FullName": "Heri Purwanto",
 
         $Auth = Auth::attempt(['MobilePhone' => $request->get('MobilePhone'), 'pswd' =>md5($request->Password)]);
 

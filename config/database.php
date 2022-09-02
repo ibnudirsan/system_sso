@@ -91,6 +91,22 @@ return [
             'prefix_indexes' => true,
         ],
 
+        /**
+         * Config Connection to SQL Server Sohih
+         */
+        'Sohih_sqlsrv' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_SQLSohih', '192.168.8.10,49170'),
+            'port' => env('DB_PORT_SQLSohih', '49170'),
+            'database' => env('DB_DATABASE_SQLSohih', 'Sohih'),
+            'username' => env('DB_USERNAME_SQLSohih', 'ibnudirsan'),
+            'password' => env('DB_PASSWORD_SQLSohih', 'pekanbaru756'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
     ],
 
     /*
