@@ -12,3 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+/**
+ * Route root web
+ */
+Route::prefix('/')->group(function () {
+    Route::name('root.')->group(function () {
+        Route::get('/', ['uses' =>'API\AuthController@index','as' =>'index']);
+    });
+});
