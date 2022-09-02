@@ -22,10 +22,6 @@ class AuthController extends Controller
                     ->Where('MobilePhone','=', $request->MobilePhone)
                     ->first();
 
-                    // "Employee_ID": "1592",
-                    // "EmployeeID": "18030093",
-                    // "FullName": "Heri Purwanto",
-
         $Auth = Auth::attempt(['MobilePhone' => $request->get('MobilePhone'), 'pswd' =>md5($request->Password)]);
 
         if(!$user || !$Auth) {
