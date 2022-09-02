@@ -2,8 +2,9 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Traits\handleHttp;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +51,25 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        return parent::render($request, $exception);
+        /**
+        * If the status code is 500 and other than 500.
+        */
+        if ($request->is('api/*')) {
+            $code = method_exists($exception, 'getStatusCode');
+            if (method_exists($exception, 'getStatusCode')) {
+                $statusCode = $this->prepareException($exception)->getStatusCode();
+                return handleHttp::HandleCode($statusCode);
+            } else {
+                    $statusCode = 500;
+                    return handleHttp::HandleCode($statusCode);
+            }
+        }
+
+        if ($request->is('api/*') && auth('sanctum')->check() == false || empty($request->header('Authorization'))){
+
+            $statusCode = 403;
+                return handleHttp::HandleCode($statusCode);
+        }
+            return parent::render($request, $exception);
     }
 }
