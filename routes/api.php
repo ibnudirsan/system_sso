@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/**
+ * Route Auth User
+ */
+Route::prefix('v1/sso/user')->group(function () {
+    Route::name('user.')->group(function () {
+        Route::post('/login', ['uses' =>'API\AuthController@Auth','as' =>'user.login']);
+    });
 });
